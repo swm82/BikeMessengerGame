@@ -4,10 +4,6 @@ from car import Car
 from road import Road
 
 from pygame.locals import (
-    K_UP,
-    K_DOWN,
-    K_LEFT,
-    K_RIGHT,
     K_ESCAPE,
     KEYDOWN,
     QUIT,
@@ -17,7 +13,8 @@ pygame.init()
 
 SCREEN_SIZE = SCREEN_WIDTH, SCREEN_HEIGHT = 1024, 768
 PLAYER_MOVE_SENSITIVITY = 5 # num pixels moved per key press
-NUM_LANES = 4
+NUM_LANES = 6 # Number of lanes per side of the road
+MAX_SPEED = 7 # Max car speed.  Increases as level advances
 
 speed = [2, 0]
 grass_rgb = 8, 69, 24
@@ -34,8 +31,6 @@ all_sprites = pygame.sprite.Group()
 cars = pygame.sprite.Group()
 all_sprites.add(player)
 
-print(road.get_car_y_coords())
-
 # The game loop:
 running = True
 while running:
@@ -44,7 +39,7 @@ while running:
         if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
             running = False
         elif event.type == ADDCAR:
-            car = Car(screen, road.get_dimensions(), road.get_car_y_coords())
+            car = Car(screen, road, MAX_SPEED)
             cars.add(car)
             all_sprites.add(car)
 
