@@ -27,3 +27,6 @@ class Player(pygame.sprite.Sprite):
 
         # Clamp the player into the screen
         self.rect.clamp_ip(self.screen.get_rect())
+    
+    def respawn(self):
+        self.rect.update(0,0, 40,10)
