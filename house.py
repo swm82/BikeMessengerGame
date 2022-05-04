@@ -10,7 +10,6 @@ class House(pygame.sprite.Sprite):
         super(House, self).__init__()
         self.speed = 2
         self.HOUSE_MISS_EVENT = pygame.event.Event(HOUSE_MISS_EVENT)
-        print()
         top_of_road = screen.get_height()/4
         bottom_of_road = screen.get_height()-top_of_road
         self.surface = pygame.image.load("house.png").convert_alpha()
@@ -23,11 +22,24 @@ class House(pygame.sprite.Sprite):
 
 
         self.surface.set_colorkey((0,0,0), RLEACCEL)
+
+        delivery_difference = 0 if not delivery else 8
+        delivery_difference = -1 * delivery_difference if is_bottom else delivery_difference
+
         self.rect = self.surface.get_rect(
-            left=screen.get_width(), top = top_of_road-height if not is_bottom else bottom_of_road
+            left=screen.get_width(), top = top_of_road-height+delivery_difference if not is_bottom else bottom_of_road+delivery_difference
         )
 
+        self.prev_speed = 0
+
         self.is_delivery = delivery
+        self.is_bottom = is_bottom
+    
+    def pause(self):
+        self.speed = 0
+
+    def resume(self):
+        self.speed = 2
     
 
     def update(self):
@@ -36,4 +48,3 @@ class House(pygame.sprite.Sprite):
             self.kill()
             if self.is_delivery:
                 pygame.event.post(self.HOUSE_MISS_EVENT)
-                print("YEP")
