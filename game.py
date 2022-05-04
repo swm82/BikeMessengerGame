@@ -138,8 +138,6 @@ class Game:
 
     def handle_collision(self):
         if self.num_lives == 0:
-            # TODO: handle_game_over()
-            # self.handle_game_over()
             self.game_over = True
             self.stop_background(True)
         else:
@@ -216,6 +214,8 @@ class Game:
                     self.stop_background(False)
                     self.num_lives = 3
                     self.points = 0
+                    self.level = 1
+                    self.car_timing = 1000
                 
 
             pressed_keys = pygame.key.get_pressed()

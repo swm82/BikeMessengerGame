@@ -12,7 +12,10 @@ class House(pygame.sprite.Sprite):
         self.HOUSE_MISS_EVENT = pygame.event.Event(HOUSE_MISS_EVENT)
         top_of_road = screen.get_height()/4
         bottom_of_road = screen.get_height()-top_of_road
-        self.surface = pygame.image.load("house.png").convert_alpha()
+        try:
+            self.surface = pygame.image.load("house.png").convert_alpha()
+        except:
+            pass
         height = 100
         width = height * self.surface.get_width()/self.surface.get_height()
         self.surface = pygame.transform.scale(self.surface, (int(width), int(height)))
